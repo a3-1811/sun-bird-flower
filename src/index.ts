@@ -61,13 +61,13 @@ class Bird implements Observer {
   public sleepTime: Date;
   public isWake: boolean;
   public isSleep: boolean;
-  public followerColorsSucked: FlowerColors[];
+  public flowerColorsSucked: FlowerColors[];
 
   public constructor(subject: Sun) {
     this.id = uuidV4();
     this.isWake = false;
     this.isSleep = true;
-    this.followerColorsSucked = [];
+    this.flowerColorsSucked = [];
 
     const { SLEEP_HOUR, WAKE_HOUR } = BIRD_HOURS;
 
@@ -79,17 +79,17 @@ class Bird implements Observer {
   update(subject: Sun): void {
     const sunTime = subject.getTime();
     if (sunTime < this.wakeTime && sunTime >= this.sleepTime) {
-      this.reset(subject);
+      this.reset();
     } else if (sunTime >= this.wakeTime && sunTime < this.sleepTime) {
       this.isWake = true;
       this.isSleep = false;
     }
   }
 
-  reset(subject: Sun): void {
+  reset(): void {
     this.isSleep = true;
     this.isWake = false;
-    this.followerColorsSucked = [];
+    this.flowerColorsSucked = [];
   }
 }
 
