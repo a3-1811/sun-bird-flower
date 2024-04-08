@@ -11,3 +11,8 @@ export const BIRD_HOURS = {
   WAKE_HOUR: SUNRISE_HOUR - 1 ,
   SLEEP_HOUR: SUNDOWN_HOUR + 1,
 };
+
+export const GARDEN_SETTING = {
+  birds: 5,
+  flowers: 10
+}
