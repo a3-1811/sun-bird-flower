@@ -36,6 +36,12 @@ export class Bird implements Observer {
     } else if (sunTime >= this.wakeTime && sunTime < this.sleepTime) {
       this.isWake = true;
       this.isSleep = false;
+
+      // Suck honey
+      const flower = this.garden.getRandomBloomingFlower(this);
+      if(flower){
+        this.suckHoney(flower);
+      }
     }
   }
 

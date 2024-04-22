@@ -1,6 +1,6 @@
 export function getInitialDatetime(): Date {
   const current = new Date();
-  current.setHours(0, 0, 0);
+  current.setHours(6, 0, 0);
   return current;
 }
 

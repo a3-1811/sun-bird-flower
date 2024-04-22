@@ -1,5 +1,5 @@
 import { GARDEN_SETTING } from "../configs";
-import { formatDateTime } from "../util";
+import { formatDateTime, getRandomIntInclusive } from "../util";
 import { Bird } from "./Bird";
 import { Flower } from "./Flower";
 import { Sun } from "./Sun";
@@ -22,7 +22,9 @@ export class Garden {
   generateFlowers(amount: number): Flower[] {
     const flowers = [];
     for (let index = 0; index < amount; index++) {
-      flowers.push(new Flower(this.sun));
+      const instance = new Flower(this.sun);
+      flowers.push(instance);
+      this.sun.addObserver(instance);
     }
     return flowers;
   }
@@ -30,25 +32,45 @@ export class Garden {
   generateBirds(amount: number): Bird[] {
     const birds = [];
     for (let index = 0; index < amount; index++) {
-      birds.push(new Bird(this.sun, this));
+      const instance = new Bird(this.sun, this); 
+      birds.push(instance);
+      this.sun.addObserver(instance);
     }
     return birds;
   }
 
   createFlower(): void {
-    this.flowers.push(new Flower(this.sun));
+    const instance = new Flower(this.sun);
+    this.flowers.push(instance);
+    this.sun.addObserver(instance);
+  }
+
+  getRandomBloomingFlower(bird:Bird): Flower | null{
+    const listFlowers = this.flowers.filter((flower) => flower.birdSuckedNectar.indexOf(bird.id) === -1 && flower.isBlooming);
+    const randomIndex = getRandomIntInclusive(0,listFlowers?.length -1);
+    return listFlowers ? listFlowers[randomIndex] : null;
   }
 
   logObjects():void{
     const currentTime = formatDateTime(this.sun.getTime(),'[hh:mm:ss]');
-    const msg = `${currentTime}:`;
+    
+    const sleptBirds = this.birds.filter(bird=>bird.isSleep)?.length;
+    const wakedBirds = this.birds.filter((bird) => bird.isWake)?.length;
+
+    const bloomingFlowers = this.flowers.filter((flower) => flower.isBlooming)?.length;
+    const wiltFlowers = this.flowers.filter((flower) => flower.isWilt)?.length;
+    
+    const msg = `${currentTime}: 
+    Bird(sleep: ${sleptBirds}, wake: ${wakedBirds})
+    Flower(blooming: ${bloomingFlowers}, wilt: ${wiltFlowers})`;
+
     console.log(msg);
   }
 
   start(): void {
     this.sunInterval = setInterval(() => {
-      // Simulate one second in realtime equal 1 minutes in garden
-      this.sun.setTime(0, 1, 0);
+      // Simulate one second in realtime equal 20 minutes in garden
+      this.sun.setTime(0, 10, 0);
       this.logObjects();
     }, 1000);
   }
