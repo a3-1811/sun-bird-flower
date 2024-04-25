@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from "uuid";
 import { BIRD_HOURS } from "../configs";
-import { modifyDatetime } from "../util";
+import { checkTimeInRange, modifyDatetime } from "../util";
 import { FlowerColors, Observer } from "./common";
 import { Flower } from "./Flower";
 import { Garden } from "./Garden";
@@ -31,15 +31,15 @@ export class Bird implements Observer {
   // COMMON
   update(subject: Sun): void {
     const sunTime = subject.getTime();
-    if (sunTime < this.wakeTime && sunTime >= this.sleepTime) {
+    if (!checkTimeInRange(sunTime, this.wakeTime, this.sleepTime)) {
       this.reset();
-    } else if (sunTime >= this.wakeTime && sunTime < this.sleepTime) {
+    } else {
       this.isWake = true;
       this.isSleep = false;
 
       // Suck honey
       const flower = this.garden.getRandomBloomingFlower(this);
-      if(flower){
+      if (flower) {
         this.suckHoney(flower);
       }
     }

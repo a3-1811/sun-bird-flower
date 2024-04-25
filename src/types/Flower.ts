@@ -1,6 +1,6 @@
 import { v4 as uuidV4 } from "uuid";
 import { FLOWER_HOURS } from "../configs";
-import { getRandomEnumValue, getRandomIntInclusive, modifyDatetime } from "../util";
+import { checkTimeInRange, getRandomEnumValue, getRandomIntInclusive, modifyDatetime } from "../util";
 import { Bird } from "./Bird";
 import { FlowerColors, Observer } from "./common";
 import { Sun } from "./Sun";
@@ -28,9 +28,9 @@ export class Flower implements Observer {
   // COMMON
   update(subject: Sun): void {
     const sunTime = subject.getTime();
-    if (sunTime < this.bloomingTime && sunTime >= this.wiltTime) {
+    if (!checkTimeInRange(sunTime, this.bloomingTime, this.wiltTime)) {
       this.reset(subject);
-    } else if (sunTime >= this.bloomingTime && sunTime < this.wiltTime) {
+    } else {
       this.isBlooming = true;
       this.isWilt = false;
     }

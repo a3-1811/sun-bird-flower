@@ -71,7 +71,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({5:[function(require,module,exports) {
+})({4:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -90,14 +90,14 @@ exports.GARDEN_SETTING = {
     birds: 5,
     flowers: 10
 };
-},{}],4:[function(require,module,exports) {
+},{}],5:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatDateTime = exports.getRandomEnumValue = exports.getRandomIntInclusive = exports.modifyDatetime = exports.getInitialDatetime = void 0;
+exports.checkTimeInRange = exports.formatDateTime = exports.getRandomEnumValue = exports.getRandomIntInclusive = exports.modifyDatetime = exports.getInitialDatetime = void 0;
 function getInitialDatetime() {
     var current = new Date();
-    current.setHours(6, 0, 0);
+    current.setHours(17, 0, 0);
     return current;
 }
 exports.getInitialDatetime = getInitialDatetime;
@@ -136,7 +136,14 @@ function formatDateTime(date, format) {
     return format.replace("DD", day).replace("MM", month).replace("YYYY", year).replace("hh", hours).replace("mm", minutes).replace("ss", seconds).replace("SSS", milliseconds);
 }
 exports.formatDateTime = formatDateTime;
-},{}],22:[function(require,module,exports) {
+function checkTimeInRange(date, start, end) {
+    var hours = date.getHours();
+    var startHours = start.getHours();
+    var endHours = end.getHours();
+    return hours >= startHours && hours < endHours;
+}
+exports.checkTimeInRange = checkTimeInRange;
+},{}],24:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -161,7 +168,7 @@ function rng() {
 
   return getRandomValues(rnds8);
 }
-},{}],26:[function(require,module,exports) {
+},{}],23:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -186,7 +193,7 @@ function validate(uuid) {
 }
 
 exports.default = validate;
-},{"./regex.js":26}],17:[function(require,module,exports) {
+},{"./regex.js":23}],19:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -232,7 +239,7 @@ function stringify(arr, offset = 0) {
 }
 
 exports.default = stringify;
-},{"./validate.js":16}],13:[function(require,module,exports) {
+},{"./validate.js":16}],15:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -341,7 +348,7 @@ function v1(options, buf, offset) {
 }
 
 exports.default = v1;
-},{"./rng.js":22,"./stringify.js":17}],19:[function(require,module,exports) {
+},{"./rng.js":24,"./stringify.js":19}],21:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -387,7 +394,7 @@ function parse(uuid) {
 }
 
 exports.default = parse;
-},{"./validate.js":16}],25:[function(require,module,exports) {
+},{"./validate.js":16}],22:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -467,7 +474,7 @@ function v35(name, version, hashfunc) {
   generateUUID.URL = URL;
   return generateUUID;
 }
-},{"./stringify.js":17,"./parse.js":19}],24:[function(require,module,exports) {
+},{"./stringify.js":19,"./parse.js":21}],25:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -681,7 +688,7 @@ function md5ii(a, b, c, d, x, s, t) {
 }
 
 exports.default = md5;
-},{}],18:[function(require,module,exports) {
+},{}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -700,7 +707,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const v3 = (0, _v2.default)('v3', 0x30, _md2.default);
 exports.default = v3;
-},{"./v35.js":25,"./md5.js":24}],23:[function(require,module,exports) {
+},{"./v35.js":22,"./md5.js":25}],26:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -710,7 +717,7 @@ const randomUUID = typeof crypto !== 'undefined' && crypto.randomUUID && crypto.
 exports.default = {
   randomUUID
 };
-},{}],12:[function(require,module,exports) {
+},{}],18:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -754,7 +761,7 @@ function v4(options, buf, offset) {
 }
 
 exports.default = v4;
-},{"./native.js":23,"./rng.js":22,"./stringify.js":17}],21:[function(require,module,exports) {
+},{"./native.js":26,"./rng.js":24,"./stringify.js":19}],27:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -856,7 +863,7 @@ function sha1(bytes) {
 }
 
 exports.default = sha1;
-},{}],14:[function(require,module,exports) {
+},{}],20:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -875,14 +882,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const v5 = (0, _v2.default)('v5', 0x50, _sha2.default);
 exports.default = v5;
-},{"./v35.js":25,"./sha1.js":21}],15:[function(require,module,exports) {
+},{"./v35.js":22,"./sha1.js":27}],14:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = '00000000-0000-0000-0000-000000000000';
-},{}],20:[function(require,module,exports) {
+},{}],17:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -904,7 +911,7 @@ function version(uuid) {
 }
 
 exports.default = version;
-},{"./validate.js":16}],11:[function(require,module,exports) {
+},{"./validate.js":16}],12:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -993,7 +1000,7 @@ Object.defineProperty(exports, 'parse', {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./v1.js":13,"./v3.js":18,"./v4.js":12,"./v5.js":14,"./nil.js":15,"./version.js":20,"./validate.js":16,"./stringify.js":17,"./parse.js":19}],6:[function(require,module,exports) {
+},{"./v1.js":15,"./v3.js":13,"./v4.js":18,"./v5.js":20,"./nil.js":14,"./version.js":17,"./validate.js":16,"./stringify.js":19,"./parse.js":21}],8:[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1029,9 +1036,9 @@ var Bird = function () {
         key: "update",
         value: function update(subject) {
             var sunTime = subject.getTime();
-            if (sunTime < this.wakeTime && sunTime >= this.sleepTime) {
+            if (!(0, util_1.checkTimeInRange)(sunTime, this.wakeTime, this.sleepTime)) {
                 this.reset();
-            } else if (sunTime >= this.wakeTime && sunTime < this.sleepTime) {
+            } else {
                 this.isWake = true;
                 this.isSleep = false;
                 // Suck honey
@@ -1077,7 +1084,7 @@ var Bird = function () {
 }();
 
 exports.Bird = Bird;
-},{"uuid":11,"../configs":5,"../util":4}],10:[function(require,module,exports) {
+},{"uuid":12,"../configs":4,"../util":5}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1122,9 +1129,9 @@ var Flower = function () {
         key: "update",
         value: function update(subject) {
             var sunTime = subject.getTime();
-            if (sunTime < this.bloomingTime && sunTime >= this.wiltTime) {
+            if (!(0, util_1.checkTimeInRange)(sunTime, this.bloomingTime, this.wiltTime)) {
                 this.reset(subject);
-            } else if (sunTime >= this.bloomingTime && sunTime < this.wiltTime) {
+            } else {
                 this.isBlooming = true;
                 this.isWilt = false;
             }
@@ -1171,7 +1178,7 @@ var Flower = function () {
 }();
 
 exports.Flower = Flower;
-},{"uuid":11,"../configs":5,"../util":4,"./common":10}],8:[function(require,module,exports) {
+},{"uuid":12,"../configs":4,"../util":5,"./common":11}],6:[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1239,7 +1246,7 @@ var Sun = function () {
 }();
 
 exports.Sun = Sun;
-},{"../util":4}],3:[function(require,module,exports) {
+},{"../util":5}],3:[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1346,14 +1353,14 @@ var Garden = function () {
 }();
 
 exports.Garden = Garden;
-},{"../configs":5,"../util":4,"./Bird":6,"./Flower":7,"./Sun":8}],2:[function(require,module,exports) {
+},{"../configs":4,"../util":5,"./Bird":8,"./Flower":7,"./Sun":6}],2:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Garden_1 = require("./types/Garden");
 var garden = new Garden_1.Garden();
 garden.start();
-},{"./types/Garden":3}],27:[function(require,module,exports) {
+},{"./types/Garden":3}],28:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -1375,7 +1382,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62240' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63643' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1476,5 +1483,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[27,2])
+},{}]},{},[28,2])
 //# sourceMappingURL=/dist/e88fad86ba5544d6f2a79f8c46a88347.map

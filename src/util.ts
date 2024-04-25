@@ -1,6 +1,6 @@
 export function getInitialDatetime(): Date {
   const current = new Date();
-  current.setHours(6, 0, 0);
+  current.setHours(17, 0, 0);
   return current;
 }
 
@@ -41,4 +41,11 @@ export function formatDateTime(date: Date, format: string): string {
     .replace("mm", minutes)
     .replace("ss", seconds)
     .replace("SSS", milliseconds);
+}
+
+export function checkTimeInRange(date: Date, start: Date, end: Date): Boolean {
+  const hours = date.getHours();
+  const startHours = start.getHours();
+  const endHours = end.getHours();
+  return hours >= startHours && hours < endHours;
 }
